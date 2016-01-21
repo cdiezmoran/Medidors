@@ -23,9 +23,9 @@ public class MainFragmentAdapter extends FragmentPagerAdapter{
 
         switch (position) {
             case 0:
-                return new UserFragment();
-            case 1:
                 return new InfoFragment();
+            case 1:
+                return new UserFragment();
             case 2:
                 return new SettingsFragment();
         }
