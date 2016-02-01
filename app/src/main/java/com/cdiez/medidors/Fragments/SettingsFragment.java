@@ -1,5 +1,6 @@
 package com.cdiez.medidors.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.cdiez.medidors.Adapters.SettingsAdapter;
+import com.cdiez.medidors.Other.FragmentConstants;
 import com.cdiez.medidors.R;
+import com.cdiez.medidors.UI.EditLocation;
+import com.cdiez.medidors.UI.EditRecibo;
 import com.cdiez.medidors.UI.LoginActivity;
 import com.parse.ParseUser;
 
@@ -26,8 +30,10 @@ public class SettingsFragment extends Fragment {
 
     @Bind(R.id.list_view) ListView mListView;
 
-    int[] mIcons = {R.drawable.ic_logout_grey600_24dp};
-    String[] mTitles = {"Logout"};
+    int[] mIcons = {R.drawable.ic_account_grey600_24dp, R.drawable.ic_receipt_grey600_24dp,
+            R.drawable.ic_map_marker_grey600_24dp, R.drawable.ic_logout_grey600_24dp};
+    String[] mTitles = {FragmentConstants.SETTINGS_PERFIL, FragmentConstants.SETTINGS_RECIBO,
+            FragmentConstants.SETTINGS_LOCATION, FragmentConstants.SETTINGS_LOGOUT};
 
     @Nullable
     @Override
@@ -43,14 +49,33 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (mTitles[position]) {
-                    case "Logout":
+                    case FragmentConstants.SETTINGS_LOGOUT:
                         ParseUser.logOutInBackground();
-                        Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                        view.getContext().startActivity(intent);
+                        goToActivity(view.getContext(), LoginActivity.class, true);
+                        break;
+
+                    case FragmentConstants.SETTINGS_LOCATION:
+                        goToActivity(view.getContext(), EditLocation.class, false);
+                        break;
+
+                    case FragmentConstants.SETTINGS_RECIBO:
+                            goToActivity(view.getContext(), EditRecibo.class, false);
+                        break;
+
+                    case FragmentConstants.SETTINGS_PERFIL:
                         break;
                 }
             }
         });
         return view;
+    }
+
+    private void goToActivity(Context context, Class<?> destination, boolean flags) {
+        Intent intent = new Intent(context, destination);
+        if (flags) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+        startActivity(intent);
     }
 }

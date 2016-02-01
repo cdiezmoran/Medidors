@@ -2,7 +2,9 @@ package com.cdiez.medidors.Other;
 
 import android.app.Application;
 
+import com.cdiez.medidors.Data.Estado;
 import com.cdiez.medidors.Data.Lectura;
+import com.cdiez.medidors.Data.Municipio;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -17,6 +19,8 @@ public class MedApplication extends Application {
         super.onCreate();
 
         ParseObject.registerSubclass(Lectura.class);
+        ParseObject.registerSubclass(Estado.class);
+        ParseObject.registerSubclass(Municipio.class);
 
         Parse.enableLocalDatastore(this);
         Parse.initialize(this);

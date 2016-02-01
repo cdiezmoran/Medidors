@@ -2,23 +2,24 @@
 <manifest package="com.cdiez.medidors"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:allowBackup="true"
         android:name=".Other.MedApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.parse.APPLICATION_ID"
-            android:value="Gd9x17vWW24mVanFv0bUkhIanBFoOegWMs3PdtmP" />
+            android:value="Gd9x17vWW24mVanFv0bUkhIanBFoOegWMs3PdtmP"/>
         <meta-data
             android:name="com.parse.CLIENT_KEY"
-            android:value="f1eoKbvM2g8lCdj80tXWFx4CkEwDrPIPCJjVIgTx" />
+            android:value="f1eoKbvM2g8lCdj80tXWFx4CkEwDrPIPCJjVIgTx"/>
 
         <activity
             android:name=".UI.MainActivity"
@@ -33,16 +34,46 @@
         <activity
             android:name=".UI.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize">
         </activity>
         <activity
             android:name=".UI.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:parentActivityName=".UI.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cdiez.medidors.UI.LoginActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.EditRecibo"
+            android:label="@string/title_activity_edit_recibo"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.HistorialActivity"
+            android:label="@string/title_activity_historial"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.EditLocation"
+            android:label="@string/title_activity_edit_location"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.MainActivity"/>
         </activity>
     </application>
 
