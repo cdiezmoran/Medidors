@@ -1,7 +1,10 @@
 package com.cdiez.medidors.Data;
 
+import android.net.Uri;
+
 import com.cdiez.medidors.Other.ParseConstants;
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -45,6 +48,11 @@ public class Lectura extends ParseObject{
 
     public void setCosto(float costo) {
         put(ParseConstants.KEY_COSTO, costo);
+    }
+
+    public String getImageString() {
+        ParseFile file = getParseFile(ParseConstants.KEY_IMAGE);
+        return Uri.parse(file.getUrl()).toString();
     }
 
     public static ParseQuery<Lectura> getQuery() {

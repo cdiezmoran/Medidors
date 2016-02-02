@@ -27,7 +27,7 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.InfoViewHolder
     @Override
     public InfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.info_item, parent, false);
+                .inflate(R.layout.item_info, parent, false);
         return new InfoViewHolder(view);
     }
 

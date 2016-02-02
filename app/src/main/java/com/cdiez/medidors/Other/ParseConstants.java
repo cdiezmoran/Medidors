@@ -19,4 +19,6 @@ public class ParseConstants {
     public static final String KEY_SHORT_NAME = "shortName";
     public static final String KEY_ESTADO = "estado";
     public static final String KEY_MUNICIPIO = "municipio";
+    public static final String KEY_IMAGE = "image";
+    public static final String KEY_USER = "user";
 }
