@@ -1,5 +1,6 @@
 package com.cdiez.medidors.Adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.cdiez.medidors.Other.FragmentConstants;
 import com.cdiez.medidors.R;
+import com.cdiez.medidors.UI.HistorialActivity;
 
 /**
  * Created by Carlos Diez
@@ -41,7 +43,9 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.InfoViewHolder
             public void onClick(View v) {
                 switch (title) {
                     case FragmentConstants.INFO_HISTORIAL:
-
+                        Intent intent = new Intent(v.getContext(), HistorialActivity.class);
+                        v.getContext().startActivity(intent);
+                        break;
                 }
             }
         });

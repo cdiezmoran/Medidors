@@ -1,13 +1,17 @@
 package com.cdiez.medidors.Data;
 
 import com.cdiez.medidors.Other.ParseConstants;
+import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
 
 /**
  * Created by Carlos Diez
  * on 2/1/16.
  */
+@ParseClassName(ParseConstants.CLASS_MUNICIPIOS)
 public class Municipio extends ParseObject {
 
     public String getName() {
@@ -19,7 +23,13 @@ public class Municipio extends ParseObject {
     }
 
     public Estado getEstado() {
-        return (Estado) getParseObject(ParseConstants.KEY_ESTADO);
+        Estado estado = null;
+        try {
+            estado = getParseObject(ParseConstants.KEY_ESTADO).fetchIfNeeded();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return estado;
     }
 
     public void setEstado(Estado estado) {

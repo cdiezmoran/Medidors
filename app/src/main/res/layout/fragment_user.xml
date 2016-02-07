@@ -1,118 +1,195 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context=".UI.MainActivity$PlaceholderFragment">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="4dp"
-        android:layout_margin="16dp">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/card_view_info"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="4dp"
+            android:layout_margin="16dp">
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
-                android:id="@+id/recibo_header"
-                android:scaleType="centerCrop"/>
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tarifa_title"
-                android:layout_below="@+id/recibo_header"
-                android:text="Tarifa: "
-                android:textSize="18sp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:id="@+id/recibo_header"
+                    android:scaleType="centerCrop"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tarifa"
-                android:layout_toEndOf="@+id/tarifa_title"
-                android:layout_toRightOf="@+id/tarifa_title"
-                android:layout_alignBaseline="@+id/tarifa_title"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tarifa_title"
+                    android:layout_below="@+id/recibo_header"
+                    android:text="Tarifa: "
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/lectura_anterior_title"
-                android:layout_below="@+id/tarifa_title"
-                android:text="Lectura Anterior: "
-                android:textSize="18sp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tarifa"
+                    android:layout_toEndOf="@+id/tarifa_title"
+                    android:layout_toRightOf="@+id/tarifa_title"
+                    android:layout_alignBaseline="@+id/tarifa_title"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/lecutra_anterior"
-                android:layout_toEndOf="@+id/lectura_anterior_title"
-                android:layout_toRightOf="@+id/lectura_anterior_title"
-                android:layout_alignBaseline="@+id/lectura_anterior_title"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lectura_anterior_title"
+                    android:layout_below="@+id/tarifa_title"
+                    android:text="Lectura Anterior: "
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fecha_lectura_title"
-                android:layout_below="@+id/lectura_anterior_title"
-                android:text="Fecha: "
-                android:textSize="18sp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lecutra_anterior"
+                    android:layout_toEndOf="@+id/lectura_anterior_title"
+                    android:layout_toRightOf="@+id/lectura_anterior_title"
+                    android:layout_alignBaseline="@+id/lectura_anterior_title"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fecha_lectura"
-                android:layout_toEndOf="@+id/fecha_lectura_title"
-                android:layout_toRightOf="@+id/fecha_lectura_title"
-                android:layout_alignBaseline="@+id/fecha_lectura_title"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fecha_lectura_title"
+                    android:layout_below="@+id/lectura_anterior_title"
+                    android:text="Fecha: "
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ultimo_pago_title"
-                android:layout_below="@+id/fecha_lectura_title"
-                android:text="Ultimo Pago: "
-                android:textSize="18sp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fecha_lectura"
+                    android:layout_toEndOf="@+id/fecha_lectura_title"
+                    android:layout_toRightOf="@+id/fecha_lectura_title"
+                    android:layout_alignBaseline="@+id/fecha_lectura_title"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ultimo_pago"
-                android:layout_toEndOf="@+id/ultimo_pago_title"
-                android:layout_toRightOf="@+id/ultimo_pago_title"
-                android:layout_alignBaseline="@+id/ultimo_pago_title"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ultimo_pago_title"
+                    android:layout_below="@+id/fecha_lectura_title"
+                    android:text="Ultimo Pago: "
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"/>
 
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ultimo_pago"
+                    android:layout_toEndOf="@+id/ultimo_pago_title"
+                    android:layout_toRightOf="@+id/ultimo_pago_title"
+                    android:layout_alignBaseline="@+id/ultimo_pago_title"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
-    </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
-</RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="4dp"
+            android:layout_margin="16dp"
+            android:id="@+id/card_view_location"
+            android:layout_below="@id/card_view_info">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:id="@+id/map"
+                    android:src="@drawable/map"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/estado_title"
+                    android:layout_below="@+id/map"
+                    android:text="Estado: "
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/estado"
+                    android:layout_toEndOf="@+id/estado_title"
+                    android:layout_toRightOf="@+id/estado_title"
+                    android:layout_alignBaseline="@+id/estado_title"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/municipio_title"
+                    android:layout_below="@+id/estado_title"
+                    android:text="Municipio: "
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/municipio"
+                    android:layout_toEndOf="@+id/municipio_title"
+                    android:layout_toRightOf="@+id/municipio_title"
+                    android:layout_alignBaseline="@+id/municipio_title"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

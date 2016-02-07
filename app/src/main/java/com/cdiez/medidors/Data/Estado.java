@@ -1,6 +1,7 @@
 package com.cdiez.medidors.Data;
 
 import com.cdiez.medidors.Other.ParseConstants;
+import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -8,6 +9,7 @@ import com.parse.ParseQuery;
  * Created by Carlos Diez
  * on 2/1/16.
  */
+@ParseClassName(ParseConstants.CLASS_ESTADOS)
 public class Estado extends ParseObject {
 
     public String getName() {

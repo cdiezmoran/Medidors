@@ -23,7 +23,8 @@
             android:id="@+id/estado"
             android:text="Estado: "
             android:textSize="16sp"
-            android:layout_weight=".75"/>
+            android:layout_weight=".75"
+            android:layout_gravity="center"/>
 
         <Spinner
             android:layout_width="match_parent"
@@ -33,28 +34,31 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linear_layout_municipio"
-        android:layout_below="@id/linear_layout_estado">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/municipio"
-            android:text="Municipio: "
-            android:textSize="16sp"
-            android:layout_weight=".75"/>
+            android:orientation="horizontal"
+            android:id="@+id/linear_layout_municipio"
+            android:layout_below="@id/linear_layout_estado"
+            android:layout_marginTop="16dp">
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/municipios"
-            android:layout_weight=".25"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/municipio"
+                android:text="Municipio: "
+                android:textSize="16sp"
+                android:layout_weight=".75"
+                android:layout_gravity="center"/>
 
-    </LinearLayout>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/municipios"
+                android:layout_weight=".25"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,7 +67,11 @@
         android:text="Auto fill?"
         android:textSize="16sp"
         android:id="@+id/auto_fill"
-        android:background="?attr/selectableItemBackgroundBorderless"/>
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_below="@id/linear_layout_municipio"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"

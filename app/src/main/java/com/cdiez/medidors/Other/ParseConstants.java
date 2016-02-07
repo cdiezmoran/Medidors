@@ -7,6 +7,8 @@ package com.cdiez.medidors.Other;
 public class ParseConstants {
 
     public static final String CLASS_LECTURAS = "Lecturas";
+    public static final String CLASS_ESTADOS = "Estados";
+    public static final String CLASS_MUNICIPIOS = "Municipios";
 
     public static final String KEY_LECTURA = "lectura";
     public static final String KEY_FECHA_LECTURA = "fechaLectura";

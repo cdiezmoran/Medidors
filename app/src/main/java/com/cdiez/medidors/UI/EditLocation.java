@@ -1,20 +1,23 @@
 package com.cdiez.medidors.UI;
 
 import android.Manifest;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
+import android.os.Looper;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -35,11 +38,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -55,6 +59,32 @@ public class EditLocation extends AppCompatActivity {
     private List<Municipio> mMunicipios = new ArrayList<>();
     private ArrayAdapter<String> mMunicipiosAdapter;
     private ArrayAdapter<String> mEstadosAdapter;
+    private List<Estado> mEstados;
+    private boolean mFlag = false;
+    private Location mLocation;
+
+    private final LocationListener mLocationListener = new LocationListener() {
+
+        @Override
+        public void onLocationChanged(final Location location) {
+            mLocation = location;
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +100,25 @@ public class EditLocation extends AppCompatActivity {
         mMunicipio = (Municipio) ParseUser.getCurrentUser().getParseObject(ParseConstants.KEY_MUNICIPIO);
 
         doEstadosQuery();
+
+        mEstadosSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (mEstados != null) {
+                    mEstado = mEstados.get(position);
+                    if (!mFlag) {
+                        doMunicipiosQuery(null);
+                    } else {
+                        mFlag = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void doEstadosQuery() {
@@ -79,6 +128,7 @@ public class EditLocation extends AppCompatActivity {
             public void done(List<Estado> list, ParseException e) {
                 if (e == null) {
                     List<String> estados = new ArrayList<>();
+                    mEstados = list;
 
                     for (Estado estado : list)
                         estados.add(estado.getName());
@@ -89,8 +139,14 @@ public class EditLocation extends AppCompatActivity {
                     mEstadosSpinner.setAdapter(mEstadosAdapter);
 
                     if (mMunicipio != null) {
-                        mEstado = mMunicipio.getEstado();
+                        try {
+                            mEstado = (Estado) mMunicipio.fetchIfNeeded().getParseObject(ParseConstants.KEY_ESTADO);
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+                        mFlag = true;
                         doMunicipiosQuery(mMunicipio.getName());
+
                     } else {
                         mEstado = list.get(0);
                         doMunicipiosQuery(null);
@@ -109,6 +165,7 @@ public class EditLocation extends AppCompatActivity {
             @Override
             public void done(List<Municipio> list, ParseException e) {
                 if (e == null) {
+                    mFlag = false;
                     mMunicipios = list;
                     List<String> municipios = new ArrayList<>();
 
@@ -123,11 +180,9 @@ public class EditLocation extends AppCompatActivity {
 
                     if (municipioName == null) {
                         mMunicipiosSpinner.setSelection(mMunicipiosAdapter.getPosition(list.get(0).getName()));
-                    }
-                    else {
+                    } else {
                         mMunicipiosSpinner.setSelection(mMunicipiosAdapter.getPosition(municipioName));
                     }
-
                 }
             }
         });
@@ -158,66 +213,160 @@ public class EditLocation extends AppCompatActivity {
 
     @OnClick(R.id.auto_fill)
     public void onAutoFillClick() {
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null) {
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
+        mLocation = getLocation();
+
+        if (mLocation != null) {
+            double longitude = mLocation.getLongitude();
+            double latitude = mLocation.getLatitude();
 
             String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + ","+ longitude + "&sensor=false";
 
             try {
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url(url)
-                        .build();
-                Response responses = null;
+                okHttpCall(url, new Callback() {
+                    Handler mainHandler = new Handler(Looper.getMainLooper());
+                    @Override
+                    public void onFailure(Call call, IOException e) {
 
-                try {
-                    responses = client.newCall(request).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                assert responses != null;
-                String jsonData = responses.body().toString();
-                JSONObject object = new JSONObject(jsonData);
-                JSONArray address_components = object.getJSONArray("address_components");
-
-                String estado = "";
-                String municipio = null;
-
-                for (int i = 0; i < address_components.length(); i++) {
-                    JSONObject jsonObject = address_components.getJSONObject(i);
-                    String long_name = jsonObject.getString("long_name");
-                    JSONArray types = jsonObject.getJSONArray("types");
-                    String type = types.getString(0);
-
-                    if (type.equalsIgnoreCase("administrative_area_level_1")) {
-                        estado = long_name;
                     }
-                    else if (type.equalsIgnoreCase("administrative_area_level_2") || type.equalsIgnoreCase("administrative_area_level_3")){
-                        municipio = long_name;
+
+                    @Override
+                    public void onResponse(Call call, final Response response) throws IOException {
+                        final String jsonData = response.body().string();
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        JSONObject object = new JSONObject(jsonData);
+                                        JSONObject secondObject = object.getJSONArray("results").getJSONObject(0);
+                                        JSONArray address_components = secondObject.getJSONArray("address_components");
+
+                                        String estado = "";
+                                        String municipio = null;
+
+                                        for (int i = 0; i < address_components.length(); i++) {
+                                            JSONObject jsonObject = address_components.getJSONObject(i);
+                                            String long_name = jsonObject.getString("long_name");
+                                            JSONArray types = jsonObject.getJSONArray("types");
+                                            String type = types.getString(0);
+
+                                            if (type.equalsIgnoreCase("administrative_area_level_1")) {
+                                                estado = long_name;
+                                            } else if (type.equalsIgnoreCase("administrative_area_level_2")
+                                                    || type.equalsIgnoreCase("administrative_area_level_3")) {
+                                                municipio = long_name;
+                                            }
+                                        }
+
+                                        mEstadosSpinner.setSelection(mEstadosAdapter.getPosition(estado));
+
+                                        if (mEstados != null)
+                                            for (Estado edo : mEstados)
+                                                if (edo.getName().equals(estado))
+                                                    mEstado = edo;
+
+                                        mFlag = true;
+                                        doMunicipiosQuery(municipio);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
                     }
-                }
-
-                mEstadosSpinner.setSelection(mEstadosAdapter.getPosition(estado));
-                doMunicipiosQuery(municipio);
-
-            } catch (JSONException e) {
+                });
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
+        else {
+            showLocationError();
+        }
+    }
+    private Call okHttpCall(String url, Callback callback) throws IOException{
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }
+
+    public Location getLocation() {
+        Location location = null;
+        try {
+            boolean isGPSEnabled;
+            boolean isNetworkEnabled;
+
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return null;
+            }
+
+            // getting GPS status
+            isGPSEnabled = locationManager
+                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            // getting network status
+            isNetworkEnabled = locationManager
+                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (!isGPSEnabled && !isNetworkEnabled) {
+                // no network provider is enabled
+                showLocationError();
+            } else {
+                // First get location from Network Provider
+                if (isNetworkEnabled) {
+                    locationManager.requestLocationUpdates(
+                            LocationManager.NETWORK_PROVIDER,
+                            1000 * 60,
+                            10, mLocationListener);
+                    if (locationManager != null) {
+                        location = locationManager
+                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    }
+                }
+                // if GPS Enabled get lat/long using GPS Services
+                if (isGPSEnabled) {
+                    if (location == null) {
+                        locationManager.requestLocationUpdates(
+                                LocationManager.GPS_PROVIDER,
+                                1000 * 60,
+                                10, mLocationListener);
+                        if (locationManager != null) {
+                            location = locationManager
+                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return location;
+    }
+
+    private void showLocationError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+        builder.setTitle("No se encontro su localización!");
+        builder.setMessage("Asegurese de tener sus servicios de localización activados y estar conectado a internet.");
+        builder.setPositiveButton("CONFIGURACIÓN", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("CANCELAR", null);
+        builder.show();
     }
 }

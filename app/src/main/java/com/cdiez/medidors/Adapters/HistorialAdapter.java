@@ -54,15 +54,21 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.foto) ImageView mFoto;
-        @Bind(R.id.lectura) TextView mLectura;
-        @Bind(R.id.lectura_anterior) TextView mLecturaAnterior;
-        @Bind(R.id.fecha) TextView mFecha;
-        @Bind(R.id.pago) TextView mPago;
+        ImageView mFoto;
+        TextView mLectura;
+        TextView mLecturaAnterior;
+        TextView mFecha;
+        TextView mPago;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(mContext, itemView);
+
+            mFoto = (ImageView) itemView.findViewById(R.id.foto);
+            mLectura = (TextView) itemView.findViewById(R.id.lectura);
+            mLecturaAnterior = (TextView) itemView.findViewById(R.id.lectura_anterior);
+            mFecha = (TextView) itemView.findViewById(R.id.fecha);
+            mPago = (TextView) itemView.findViewById(R.id.pago);
+
         }
 
         public void bindItem(Lectura lectura) {

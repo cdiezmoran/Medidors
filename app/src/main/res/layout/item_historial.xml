@@ -4,7 +4,7 @@
                                     android:orientation="vertical"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    app:cardElevation="8dp"
+                                    app:cardElevation="4dp"
                                     app:cardCornerRadius="4dp"
                                     android:layout_margin="16dp">
 
@@ -22,7 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lectura"
-            android:layout_below="@+id/foto"/>
+            android:layout_below="@+id/foto"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,19 +34,28 @@
             android:id="@+id/fecha"
             android:layout_alignBaseline="@+id/lectura"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lectura_anterior"
-            android:layout_below="@+id/lectura"/>
+            android:layout_below="@+id/lectura"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/pago"
-            android:layout_below="@+id/lectura_anterior"/>
+            android:layout_below="@+id/lectura_anterior"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"/>
 
     </RelativeLayout>
 
