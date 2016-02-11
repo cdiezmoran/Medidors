@@ -75,6 +75,41 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cdiez.medidors.UI.MainActivity"/>
         </activity>
+        <activity
+            android:name=".UI.EditProfile"
+            android:label="@string/title_activity_edit_profile"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.EditPassword"
+            android:label="@string/title_activity_edit_password"
+            android:parentActivityName=".UI.EditProfile"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.EditProfile"/>
+        </activity>
+        <activity
+            android:name=".UI.LecturaManual"
+            android:label="@string/title_activity_lectura_manual"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.CalculateActivity"
+            android:label="@string/title_activity_calculate"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

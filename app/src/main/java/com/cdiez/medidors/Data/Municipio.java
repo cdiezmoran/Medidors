@@ -36,12 +36,12 @@ public class Municipio extends ParseObject {
         put(ParseConstants.KEY_ESTADO, estado);
     }
 
-    public int getTarifaId() {
-        return getNumber(ParseConstants.KEY_TARIFA).intValue();
+    public Tarifa getTarifa() {
+        return (Tarifa) getParseObject(ParseConstants.KEY_TARIFA);
     }
 
-    public void setTarifaId(int tarifaId) {
-        put(ParseConstants.KEY_TARIFA, tarifaId);
+    public void setTarifa(Tarifa tarifa) {
+        put(ParseConstants.KEY_TARIFA, tarifa);
     }
 
     public static ParseQuery<Municipio> getQuery() {

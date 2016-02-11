@@ -15,6 +15,7 @@ import com.cdiez.medidors.Adapters.SettingsAdapter;
 import com.cdiez.medidors.Other.FragmentConstants;
 import com.cdiez.medidors.R;
 import com.cdiez.medidors.UI.EditLocation;
+import com.cdiez.medidors.UI.EditProfile;
 import com.cdiez.medidors.UI.EditRecibo;
 import com.cdiez.medidors.UI.LoginActivity;
 import com.parse.ParseUser;
@@ -63,6 +64,7 @@ public class SettingsFragment extends Fragment {
                         break;
 
                     case FragmentConstants.SETTINGS_PERFIL:
+                        goToActivity(view.getContext(), EditProfile.class, false);
                         break;
                 }
             }

@@ -16,6 +16,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import com.cdiez.medidors.Data.Estado;
 import com.cdiez.medidors.Data.Municipio;
 import com.cdiez.medidors.Other.ParseConstants;
 import com.cdiez.medidors.R;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -62,6 +64,7 @@ public class EditLocation extends AppCompatActivity {
     private List<Estado> mEstados;
     private boolean mFlag = false;
     private Location mLocation;
+    private AlertDialog mAlertDialog;
 
     private final LocationListener mLocationListener = new LocationListener() {
 
@@ -183,6 +186,10 @@ public class EditLocation extends AppCompatActivity {
                     } else {
                         mMunicipiosSpinner.setSelection(mMunicipiosAdapter.getPosition(municipioName));
                     }
+
+                    if (mAlertDialog != null && mAlertDialog.isShowing()) {
+                        mAlertDialog.dismiss();
+                    }
                 }
             }
         });
@@ -195,6 +202,8 @@ public class EditLocation extends AppCompatActivity {
 
         ParseUser user = ParseUser.getCurrentUser();
         user.put(ParseConstants.KEY_MUNICIPIO, municipio);
+
+        showProgressView();
 
         user.saveInBackground(new SaveCallback() {
             @Override
@@ -213,13 +222,14 @@ public class EditLocation extends AppCompatActivity {
 
     @OnClick(R.id.auto_fill)
     public void onAutoFillClick() {
+        showProgressView();
         mLocation = getLocation();
 
         if (mLocation != null) {
             double longitude = mLocation.getLongitude();
             double latitude = mLocation.getLatitude();
 
-            String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + ","+ longitude + "&sensor=false";
+            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + ","+ longitude + "&key=AIzaSyAlEnwOmGFqUMT1RmOskanU57wRPe8nw2Y";
 
             try {
                 okHttpCall(url, new Callback() {
@@ -281,6 +291,7 @@ public class EditLocation extends AppCompatActivity {
         }
         else {
             showLocationError();
+            mAlertDialog.dismiss();
         }
     }
     private Call okHttpCall(String url, Callback callback) throws IOException{
@@ -368,5 +379,16 @@ public class EditLocation extends AppCompatActivity {
         });
         builder.setNegativeButton("CANCELAR", null);
         builder.show();
+    }
+
+    private void showProgressView() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.transparentAlertDialog);
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = inflater.inflate(R.layout.circular_progress_view, null);
+        builder.setView(convertView);
+        CircularProgressView cpv = (CircularProgressView) convertView.findViewById(R.id.cpv);
+        cpv.startAnimation();
+        builder.setCancelable(false);
+        mAlertDialog = builder.show();
     }
 }

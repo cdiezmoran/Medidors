@@ -39,12 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         mEmailField.setError(null);
         mPasswordField.setError(null);
 
-        if (!isEmailValid(email)) {
-            mEmailField.setError(getResources().getString(R.string.error_invalid_email));
-            mEmailField.requestFocus();
-            return;
-        }
-
         if (!isPasswordValid(password)) {
             mPasswordField.setError(getResources().getString(R.string.error_invalid_password));
             mPasswordField.requestFocus();
@@ -90,10 +84,6 @@ public class LoginActivity extends AppCompatActivity {
             builder.setMessage("Please make sure your email and password are correct!");
             builder.show();
         }
-    }
-
-    public boolean isEmailValid(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     public boolean isPasswordValid(String password) {

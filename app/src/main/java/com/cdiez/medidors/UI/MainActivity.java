@@ -9,11 +9,16 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.cdiez.medidors.Adapters.MainFragmentAdapter;
 import com.cdiez.medidors.R;
@@ -88,8 +93,31 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Main function not working yet", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                String[] options = {"Medidor cuatro caratulas", "Medidor digital", "Manual"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View convertView = inflater.inflate(R.layout.camera_list, null);
+                builder.setView(convertView);
+                ListView listView = (ListView) convertView.findViewById(R.id.list_view);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, options);
+                listView.setAdapter(arrayAdapter);
+                builder.show();
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        switch (position) {
+                            case 0:
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                Intent intent = new Intent(parent.getContext(), LecturaManual.class);
+                                parent.getContext().startActivity(intent);
+                                break;
+                        }
+                    }
+                });
             }
         });
 

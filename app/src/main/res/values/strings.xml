@@ -11,8 +11,12 @@
     <string name="action_sign_in">Iniciar Sesión</string>
     <string name="action_sign_up">Registrarse</string>
     <string name="error_invalid_email">Email inválido</string>
+    <string name="error_invalid_user">Usuario inválido</string>
+    <string name="error_used_username">Usuario en uso</string>
+    <string name="error_used_email">Email en uso</string>
     <string name="error_invalid_password">Contraseña demasiado corta</string>
     <string name="error_incorrect_password">Contraseña incorrecta</string>
+    <string name="error_incorrect_confrim">Las contraseñas no coinciden</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -25,4 +29,8 @@
     <string name="action_save">Guardar</string>
     <string name="title_activity_historial">Historial</string>
     <string name="title_activity_edit_location">Localización</string>
+    <string name="title_activity_edit_profile">Profile</string>
+    <string name="title_activity_edit_password">Cambiar Contraseña</string>
+    <string name="title_activity_lectura_manual">Manual</string>
+    <string name="title_activity_calculate">Calculo</string>
 </resources>

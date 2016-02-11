@@ -36,7 +36,7 @@ public class EditRecibo extends AppCompatActivity {
     @Bind(R.id.lecutra_anterior) EditText mUltimaLectura;
     @Bind(R.id.fecha_anterior) EditText mFechaAnterior;
     @Bind(R.id.ultimo_pago) EditText mUltimoPago;
-    @Bind(R.id.tarifa) TextView mTarifaTitle;
+    @Bind(R.id.ultimo_consumo) EditText mUltimoConsumo;
 
     private SimpleDateFormat mDateFormatter;
     private ParseUser mUser = ParseUser.getCurrentUser();
@@ -61,7 +61,7 @@ public class EditRecibo extends AppCompatActivity {
 
         mDateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
-        mSpinner.setSelection(mUser.getNumber(ParseConstants.KEY_TARIFA).intValue());
+        mSpinner.setSelection(0);
         mUltimaLectura.setText(mUser.getNumber(ParseConstants.KEY_LECTURA_ANTERIOR).toString());
         mUltimoPago.setText(mUser.getNumber(ParseConstants.KEY_ULTIMO_PAGO).toString());
         mFechaAnterior.setText(mDateFormatter.format(mUser.getDate(ParseConstants.KEY_FECHA_LECTURA)));
@@ -76,12 +76,22 @@ public class EditRecibo extends AppCompatActivity {
         String lecturaString = mUltimaLectura.getText().toString().trim();
         String fechaString = mFechaAnterior.getText().toString().trim();
         String pagoString = mUltimoPago.getText().toString().trim();
+        String consumoString = mUltimoConsumo.getText().toString().trim();
 
         mUser = ParseUser.getCurrentUser();
 
+        if (lecturaString.isEmpty()) {
+            mUltimaLectura.setError(getResources().getString(R.string.error_field_required));
+            mUltimaLectura.requestFocus();
+            return;
+        }
+
         mUser.put(ParseConstants.KEY_LECTURA_ANTERIOR, Integer.parseInt(lecturaString));
         mUser.put(ParseConstants.KEY_TARIFA, mSpinner.getSelectedItemPosition());
-        mUser.put(ParseConstants.KEY_ULTIMO_PAGO, Float.parseFloat(pagoString));
+        if (!pagoString.isEmpty())
+            mUser.put(ParseConstants.KEY_ULTIMO_PAGO, Float.parseFloat(pagoString));
+        if (!consumoString.isEmpty())
+            mUser.put(ParseConstants.KEY_ULTIMO_CONSUMO, Integer.parseInt(consumoString));
 
         try {
             Date fecha = mDateFormatter.parse(fechaString);

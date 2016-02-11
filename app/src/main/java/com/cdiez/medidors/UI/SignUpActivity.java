@@ -62,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this, R.style.AppCompatAlertDialogStyle);
                     builder.setTitle("Algo salio mal!");
                     builder.setPositiveButton("OK", null);
-                    builder.setMessage("Hubo un error conectandose con el servidor! Porfavor intente de nuevo mas tarde.");
+                    builder.setMessage("No se pudo conectar con el servidor! Porfavor intente de nuevo mas tarde.");
                     builder.show();
                 }
             }
@@ -87,19 +87,19 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (!isEmailValid(email)) {
-            mEmailField.setError(getResources().getString(R.string.error_field_required));
+            mEmailField.setError(getResources().getString(R.string.error_invalid_email));
             mEmailField.requestFocus();
             return false;
         }
 
         if (!isPasswordValid(password)) {
-            mPasswordField.setError(getResources().getString(R.string.error_field_required));
+            mPasswordField.setError(getResources().getString(R.string.error_invalid_password));
             mPasswordField.requestFocus();
             return false;
         }
 
         if (!confirmPassword.equals(password)) {
-            mConfirmPasswordField.setError(getResources().getString(R.string.error_field_required));
+            mConfirmPasswordField.setError(getResources().getString(R.string.error_incorrect_confrim));
             mConfirmPasswordField.requestFocus();
             return false;
         }
@@ -112,7 +112,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public boolean isPasswordValid(String password) {
-        //TODO: Make logic.
-        return true;
+        return password.length() > 2 && password.length() < 16;
     }
 }

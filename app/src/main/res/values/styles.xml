@@ -22,4 +22,9 @@
         <item name="android:background">#FFFFFF</item>
     </style>
 
+    <style name="transparentAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>
