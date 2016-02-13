@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.cdiez.medidors.Adapters.SettingsAdapter;
 import com.cdiez.medidors.Other.FragmentConstants;
 import com.cdiez.medidors.R;
+import com.cdiez.medidors.UI.CalculatorSettingsActivity;
 import com.cdiez.medidors.UI.EditLocation;
 import com.cdiez.medidors.UI.EditProfile;
 import com.cdiez.medidors.UI.EditRecibo;
@@ -31,10 +32,10 @@ public class SettingsFragment extends Fragment {
 
     @Bind(R.id.list_view) ListView mListView;
 
-    int[] mIcons = {R.drawable.ic_account_grey600_24dp, R.drawable.ic_receipt_grey600_24dp,
-            R.drawable.ic_map_marker_grey600_24dp, R.drawable.ic_logout_grey600_24dp};
-    String[] mTitles = {FragmentConstants.SETTINGS_PERFIL, FragmentConstants.SETTINGS_RECIBO,
-            FragmentConstants.SETTINGS_LOCATION, FragmentConstants.SETTINGS_LOGOUT};
+    int[] mIcons = {R.drawable.ic_account_grey600_24dp, R.drawable.ic_calculator_grey600_24dp,
+            R.drawable.ic_logout_grey600_24dp};
+    String[] mTitles = {FragmentConstants.SETTINGS_PERFIL, FragmentConstants.SETTINGS_CALCULATOR,
+            FragmentConstants.SETTINGS_LOGOUT};
 
     @Nullable
     @Override
@@ -55,12 +56,8 @@ public class SettingsFragment extends Fragment {
                         goToActivity(view.getContext(), LoginActivity.class, true);
                         break;
 
-                    case FragmentConstants.SETTINGS_LOCATION:
-                        goToActivity(view.getContext(), EditLocation.class, false);
-                        break;
-
-                    case FragmentConstants.SETTINGS_RECIBO:
-                            goToActivity(view.getContext(), EditRecibo.class, false);
+                    case FragmentConstants.SETTINGS_CALCULATOR:
+                        goToActivity(view.getContext(), CalculatorSettingsActivity.class, false);
                         break;
 
                     case FragmentConstants.SETTINGS_PERFIL:

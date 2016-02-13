@@ -9,11 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.cdiez.medidors.Data.Tarifa;
 import com.cdiez.medidors.Other.ParseConstants;
 import com.cdiez.medidors.R;
+import com.parse.FindCallback;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.wdullaer.materialdatetimepicker.Utils;
@@ -21,8 +25,10 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
@@ -40,6 +46,7 @@ public class EditRecibo extends AppCompatActivity {
 
     private SimpleDateFormat mDateFormatter;
     private ParseUser mUser = ParseUser.getCurrentUser();
+    private List<Tarifa> mTarifas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +59,7 @@ public class EditRecibo extends AppCompatActivity {
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String[] tarifas = {"2", "3", "5", "5-A", "6", "9", "9M", "9-CU", "etc.."};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tarifas);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        mSpinner.setAdapter(adapter);
+        getTarifas();
 
         mDateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
@@ -87,7 +89,7 @@ public class EditRecibo extends AppCompatActivity {
         }
 
         mUser.put(ParseConstants.KEY_LECTURA_ANTERIOR, Integer.parseInt(lecturaString));
-        mUser.put(ParseConstants.KEY_TARIFA, mSpinner.getSelectedItemPosition());
+        mUser.put(ParseConstants.KEY_TARIFA, mTarifas.get(mSpinner.getSelectedItemPosition()));
         if (!pagoString.isEmpty())
             mUser.put(ParseConstants.KEY_ULTIMO_PAGO, Float.parseFloat(pagoString));
         if (!consumoString.isEmpty())
@@ -138,6 +140,35 @@ public class EditRecibo extends AppCompatActivity {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 mUltimoPago.requestFocus();
+            }
+        });
+    }
+
+    private void getTarifas() {
+        ParseQuery<Tarifa> query = Tarifa.getQuery();
+        query.findInBackground(new FindCallback<Tarifa>() {
+            @Override
+            public void done(List<Tarifa> list, com.parse.ParseException e) {
+                mTarifas = list;
+
+                List<String> tarifasList = new ArrayList<>();
+                for (Tarifa tarifa : list)
+                    tarifasList.add(tarifa.getName());
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditRecibo.this, android.R.layout.simple_spinner_item, tarifasList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                mSpinner.setAdapter(adapter);
+
+                Tarifa tarifa = null;
+                try {
+                    tarifa = mUser.getParseObject(ParseConstants.KEY_TARIFA).fetchIfNeeded();
+                } catch (com.parse.ParseException e1) {
+                    e1.printStackTrace();
+                }
+
+                if (tarifa != null)
+                    mSpinner.setSelection(adapter.getPosition(tarifa.getName()));
             }
         });
     }

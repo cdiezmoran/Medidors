@@ -5,20 +5,14 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.cdiez.medidors.Adapters.MainFragmentAdapter;
 import com.cdiez.medidors.R;
@@ -29,7 +23,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.container) ViewPager mViewPager;
     @Bind(R.id.tab_layout) TabLayout mTabLayout;
 
@@ -38,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        setSupportActionBar(mToolbar);
 
         if (ParseUser.getCurrentUser() == null) {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -57,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 ContextCompat.getDrawable(this, R.drawable.ic_settings_white_24dp)};
 
         for (Drawable drawable : drawables) {
+            drawable.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
             drawable.setAlpha(100);
         }
 
@@ -64,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.addTab(mTabLayout.newTab().setIcon(drawables[1]));
         mTabLayout.addTab(mTabLayout.newTab().setIcon(drawables[2]));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, android.R.color.white));
+        mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorAccent));
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -93,56 +85,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] options = {"Medidor cuatro caratulas", "Medidor digital", "Manual"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                LayoutInflater inflater = getLayoutInflater();
-                View convertView = inflater.inflate(R.layout.camera_list, null);
-                builder.setView(convertView);
-                ListView listView = (ListView) convertView.findViewById(R.id.list_view);
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, options);
-                listView.setAdapter(arrayAdapter);
-                builder.show();
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        switch (position) {
-                            case 0:
-                                break;
-                            case 1:
-                                break;
-                            case 2:
-                                Intent intent = new Intent(parent.getContext(), LecturaManual.class);
-                                parent.getContext().startActivity(intent);
-                                break;
-                        }
-                    }
-                });
             }
         });
 
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

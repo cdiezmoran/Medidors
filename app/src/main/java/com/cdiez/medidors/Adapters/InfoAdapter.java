@@ -1,5 +1,6 @@
 package com.cdiez.medidors.Adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 
 import com.cdiez.medidors.Other.FragmentConstants;
 import com.cdiez.medidors.R;
+import com.cdiez.medidors.UI.ConsejosActivity;
 import com.cdiez.medidors.UI.HistorialActivity;
+import com.cdiez.medidors.UI.LecturaManual;
+import com.cdiez.medidors.UI.MapActivity;
 
 /**
  * Created by Carlos Diez
@@ -43,12 +47,24 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.InfoViewHolder
             public void onClick(View v) {
                 switch (title) {
                     case FragmentConstants.INFO_HISTORIAL:
-                        Intent intent = new Intent(v.getContext(), HistorialActivity.class);
-                        v.getContext().startActivity(intent);
+                        goToActivity(v.getContext(), HistorialActivity.class);
                         break;
+                    case FragmentConstants.INFO_CALCULADORA:
+                        goToActivity(v.getContext(), LecturaManual.class);
+                        break;
+                    case FragmentConstants.INFO_CONSEJOS:
+                        goToActivity(v.getContext(), ConsejosActivity.class);
+                        break;
+                    case FragmentConstants.INFO_CENTROS:
+                        goToActivity(v.getContext(), MapActivity.class);
                 }
             }
         });
+    }
+
+    private void goToActivity(Context context, Class<?> targetClass) {
+        Intent intent = new Intent(context, targetClass);
+        context.startActivity(intent);
     }
 
     @Override

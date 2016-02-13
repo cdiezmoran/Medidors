@@ -25,17 +25,41 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:id="@+id/recibo_header"
-                    android:scaleType="centerCrop"/>
+                    android:id="@+id/perfil_header"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/material"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tarifa_title"
-                    android:layout_below="@+id/recibo_header"
-                    android:text="Tarifa: "
+                    android:id="@+id/name_title"
+                    android:layout_below="@+id/perfil_header"
+                    android:text="Nombre: "
                     android:textSize="18sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name"
+                    android:layout_toEndOf="@+id/name_title"
+                    android:layout_toRightOf="@+id/name_title"
+                    android:layout_alignBaseline="@+id/name_title"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/username_title"
+                    android:layout_below="@+id/name_title"
+                    android:text="Usuario: "
+                    android:textSize="18sp"
+                    android:textColor="@color/colorAccent"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"/>
@@ -43,21 +67,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tarifa"
-                    android:layout_toEndOf="@+id/tarifa_title"
-                    android:layout_toRightOf="@+id/tarifa_title"
-                    android:layout_alignBaseline="@+id/tarifa_title"
+                    android:id="@+id/username"
+                    android:layout_toEndOf="@+id/username_title"
+                    android:layout_toRightOf="@+id/username_title"
+                    android:layout_alignBaseline="@+id/username_title"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/lectura_anterior_title"
-                    android:layout_below="@+id/tarifa_title"
-                    android:text="Lectura Anterior: "
+                    android:id="@+id/email_title"
+                    android:layout_below="@+id/username_title"
+                    android:text="Email: "
                     android:textSize="18sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"/>
@@ -65,56 +89,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/lecutra_anterior"
-                    android:layout_toEndOf="@+id/lectura_anterior_title"
-                    android:layout_toRightOf="@+id/lectura_anterior_title"
-                    android:layout_alignBaseline="@+id/lectura_anterior_title"
+                    android:id="@+id/email"
+                    android:layout_toEndOf="@+id/email_title"
+                    android:layout_toRightOf="@+id/email_title"
+                    android:layout_alignBaseline="@+id/email_title"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fecha_lectura_title"
-                    android:layout_below="@+id/lectura_anterior_title"
-                    android:text="Fecha: "
-                    android:textSize="18sp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fecha_lectura"
-                    android:layout_toEndOf="@+id/fecha_lectura_title"
-                    android:layout_toRightOf="@+id/fecha_lectura_title"
-                    android:layout_alignBaseline="@+id/fecha_lectura_title"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ultimo_pago_title"
-                    android:layout_below="@+id/fecha_lectura_title"
-                    android:text="Ultimo Pago: "
-                    android:textSize="18sp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ultimo_pago"
-                    android:layout_toEndOf="@+id/ultimo_pago_title"
-                    android:layout_toRightOf="@+id/ultimo_pago_title"
-                    android:layout_alignBaseline="@+id/ultimo_pago_title"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"/>
 
             </RelativeLayout>
 
@@ -138,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:id="@+id/map"
-
+                    android:src="@drawable/map"
                     android:scaleType="centerCrop"/>
 
                 <TextView
@@ -148,7 +128,7 @@
                     android:layout_below="@+id/map"
                     android:text="Estado: "
                     android:textSize="18sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="8dp"
@@ -162,7 +142,7 @@
                     android:layout_toRightOf="@+id/estado_title"
                     android:layout_alignBaseline="@+id/estado_title"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,7 +151,7 @@
                     android:layout_below="@+id/estado_title"
                     android:text="Municipio: "
                     android:textSize="18sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"/>
@@ -184,7 +164,7 @@
                     android:layout_toRightOf="@+id/municipio_title"
                     android:layout_alignBaseline="@+id/municipio_title"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"/>
 
             </RelativeLayout>
 

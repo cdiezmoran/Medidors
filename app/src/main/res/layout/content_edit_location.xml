@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.cdiez.medidors.UI.EditLocation"
     tools:showIn="@layout/activity_edit_location">
@@ -15,7 +14,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/linear_layout_estado"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -40,7 +40,8 @@
             android:orientation="horizontal"
             android:id="@+id/linear_layout_municipio"
             android:layout_below="@id/linear_layout_estado"
-            android:layout_marginTop="16dp">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -73,12 +74,20 @@
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".25dp"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/divider"
+        android:layout_above="@+id/linear_layout_buttons"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/linear_layout_buttons"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
 
         <Button
             android:layout_width="match_parent"

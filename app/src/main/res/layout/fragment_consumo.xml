@@ -1,34 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.cdiez.medidors.UI.LecturaManual"
     tools:showIn="@layout/activity_lectura_manual">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lectura_anterior"
-        android:textColor="@android:color/black"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_lectura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lectura_anterior"
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        android:layout_alignParentTop="true">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lectura"
-            android:hint="Lectura"
+            android:id="@+id/consumo"
+            android:hint="Consumo"
             android:inputType="number"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -40,7 +29,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/input_layout_lectura"
         android:layout_margin="16dp"
-        android:text="La ultima lectura es usada para calcular su consumo. Para cambiarla porfavor vaya a ajustes/Recibo."/>
+        android:text="Su consumo puede ser consultado en su recibo, si este no ha llegado puede introducir la lectura de su medidor en la pestaña de lectura."/>
 
     <Button
         android:layout_width="match_parent"

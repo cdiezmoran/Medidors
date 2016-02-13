@@ -1,14 +1,12 @@
 package com.cdiez.medidors.UI;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.CircularPropagation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -20,6 +18,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.RequestPasswordResetCallback;
 import com.parse.SaveCallback;
 
 import java.util.List;
@@ -35,6 +34,7 @@ public class EditProfile extends AppCompatActivity {
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.email_field) EditText mEmailField;
     @Bind(R.id.user_field) EditText mUserField;
+    @Bind(R.id.coordinator) CoordinatorLayout mCoordinatorLayout;
 
     private ParseUser mUser = ParseUser.getCurrentUser();
 
@@ -87,7 +87,7 @@ public class EditProfile extends AppCompatActivity {
     }
 
     private void showProgressView() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.transparentAlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.TransparentAlertDialog);
         LayoutInflater inflater = getLayoutInflater();
         View convertView = inflater.inflate(R.layout.circular_progress_view, null);
         builder.setView(convertView);
@@ -171,7 +171,13 @@ public class EditProfile extends AppCompatActivity {
 
     @OnClick(R.id.change_password)
     public void onClickChangePassword() {
-        Intent intent = new Intent(this, EditPassword.class);
-        startActivity(intent);
+        ParseUser.requestPasswordResetInBackground(ParseUser.getCurrentUser().getEmail(), new RequestPasswordResetCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Snackbar.make(mCoordinatorLayout, "Se le ha enviado un email con instrucciones para cambiar su contraseña.", Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

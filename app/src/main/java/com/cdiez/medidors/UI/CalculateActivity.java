@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.cdiez.medidors.Data.Tarifa;
 import com.cdiez.medidors.Other.ParseConstants;
 import com.cdiez.medidors.R;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import butterknife.Bind;
@@ -27,16 +28,25 @@ public class CalculateActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolbar);
 
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         calculate();
     }
 
     private void calculate() {
         Intent intent = getIntent();
-        float consumo = intent.getFloatExtra("consumo", 0);
+        int consumo = intent.getIntExtra("consumo", 0);
         float pago = 0;
 
-        Tarifa tarifa = (Tarifa) ParseUser.getCurrentUser().getParseObject(ParseConstants.KEY_TARIFA);
+        Tarifa tarifa = null;
+        try {
+            tarifa = ParseUser.getCurrentUser().getParseObject(ParseConstants.KEY_TARIFA).fetchIfNeeded();
+        } catch(ParseException e){
+            e.printStackTrace();
+        }
 
+        assert tarifa != null;
         switch (tarifa.getName()) {
             case "1":
                 pago = getPagoUnoDos(consumo, tarifa);

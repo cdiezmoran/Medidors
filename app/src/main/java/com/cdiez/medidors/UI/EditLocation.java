@@ -382,7 +382,7 @@ public class EditLocation extends AppCompatActivity {
     }
 
     private void showProgressView() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.transparentAlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.TransparentAlertDialog);
         LayoutInflater inflater = getLayoutInflater();
         View convertView = inflater.inflate(R.layout.circular_progress_view, null);
         builder.setView(convertView);

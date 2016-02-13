@@ -10,6 +10,7 @@ public class ParseConstants {
     public static final String CLASS_ESTADOS = "Estados";
     public static final String CLASS_MUNICIPIOS = "Municipios";
     public static final String CLASS_TARIFAS = "Tarifas";
+    public static final String CLASS_CENTROS = "Centros";
 
     public static final String KEY_LECTURA = "lectura";
     public static final String KEY_FECHA_LECTURA = "fechaLectura";
@@ -33,4 +34,7 @@ public class ParseConstants {
     public static final String KEY_EXCEDENTE = "excedente";
     public static final String KEY_PRIMER_MAXIMO = "primerMaximo";
     public static final String KEY_SEGUNDO_MAXIMO = "segundoMaximo";
+    public static final String KEY_ADDRESS = "address";
+    public static final String KEY_LOCATION = "location";
+    public static final String KEY_APELLIDOS = "apellidos";
 }

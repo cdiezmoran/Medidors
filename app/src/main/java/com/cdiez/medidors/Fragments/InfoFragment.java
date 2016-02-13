@@ -25,8 +25,10 @@ public class InfoFragment extends Fragment {
 
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
 
-    int[] mIcons = {R.drawable.ic_history_black_48dp};
-    String[] mTitles = {FragmentConstants.INFO_HISTORIAL};
+    int[] mIcons = {R.drawable.ic_history_grey600_48dp, R.drawable.ic_calculator_grey600_48dp,
+            R.drawable.ic_lightbulb_grey600_48dp, R.drawable.ic_map_grey600_48dp};
+    String[] mTitles = {FragmentConstants.INFO_HISTORIAL, FragmentConstants.INFO_CALCULADORA,
+            FragmentConstants.INFO_CONSEJOS, FragmentConstants.INFO_CENTROS};
 
     @Nullable
     @Override

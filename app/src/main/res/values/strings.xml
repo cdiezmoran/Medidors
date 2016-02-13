@@ -31,6 +31,9 @@
     <string name="title_activity_edit_location">Localización</string>
     <string name="title_activity_edit_profile">Profile</string>
     <string name="title_activity_edit_password">Cambiar Contraseña</string>
-    <string name="title_activity_lectura_manual">Manual</string>
+    <string name="title_activity_lectura_manual">Calculadora</string>
     <string name="title_activity_calculate">Calculo</string>
+    <string name="title_activity_consejos">Consejos para ahorrar energía</string>
+    <string name="title_activity_map">Centros de Atención</string>
+    <string name="title_activity_calculator_settings">Ajustes de calculadora</string>
 </resources>

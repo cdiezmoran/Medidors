@@ -68,7 +68,7 @@ public class Tarifa extends ParseObject{
         put(ParseConstants.KEY_SEGUNDO_MAXIMO, segundoMaximo);
     }
 
-    public ParseQuery<Tarifa> getQuery() {
+    public static ParseQuery<Tarifa> getQuery() {
         return ParseQuery.getQuery(Tarifa.class);
     }
 }

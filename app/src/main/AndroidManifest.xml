@@ -20,6 +20,12 @@
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="f1eoKbvM2g8lCdj80tXWFx4CkEwDrPIPCJjVIgTx"/>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAlEnwOmGFqUMT1RmOskanU57wRPe8nw2Y"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
 
         <activity
             android:name=".UI.MainActivity"
@@ -50,7 +56,7 @@
         <activity
             android:name=".UI.EditRecibo"
             android:label="@string/title_activity_edit_recibo"
-            android:parentActivityName=".UI.MainActivity"
+            android:parentActivityName=".UI.CalculatorSettingsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible|adjustResize">
             <meta-data
@@ -69,7 +75,7 @@
         <activity
             android:name=".UI.EditLocation"
             android:label="@string/title_activity_edit_location"
-            android:parentActivityName=".UI.MainActivity"
+            android:parentActivityName=".UI.CalculatorSettingsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -86,16 +92,6 @@
                 android:value="com.cdiez.medidors.UI.MainActivity"/>
         </activity>
         <activity
-            android:name=".UI.EditPassword"
-            android:label="@string/title_activity_edit_password"
-            android:parentActivityName=".UI.EditProfile"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cdiez.medidors.UI.EditProfile"/>
-        </activity>
-        <activity
             android:name=".UI.LecturaManual"
             android:label="@string/title_activity_lectura_manual"
             android:parentActivityName=".UI.MainActivity"
@@ -108,7 +104,38 @@
         <activity
             android:name=".UI.CalculateActivity"
             android:label="@string/title_activity_calculate"
+            android:parentActivityName=".UI.LecturaManual"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.LecturaManual"/>
+        </activity>
+        <activity
+            android:name=".UI.ConsejosActivity"
+            android:label="@string/title_activity_consejos"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.MapActivity"
+            android:label="@string/title_activity_map"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.CalculatorSettingsActivity"
+            android:label="@string/title_activity_calculator_settings"
+            android:parentActivityName=".UI.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cdiez.medidors.UI.MainActivity"/>
         </activity>
     </application>
 
